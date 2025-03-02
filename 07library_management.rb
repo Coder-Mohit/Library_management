@@ -18,6 +18,9 @@ class Borrower
         @name = name.downcase
         @contact = contact.downcase
     end
+    def display
+        puts "Name: #@name, email: #@contact"
+    end
 end
 
 class Library
@@ -32,7 +35,7 @@ class Library
     end
 end
 
-arr = [Book.new("harry","poter",2021),
+arr = [Book.new("harry","john",2021),
        Book.new("ronny","hanry",2025),
        Book.new("united","tomy",2003),
       ]
@@ -62,7 +65,7 @@ def addBorrower
 end
 
 def searchBook(arr)
-    print "Enter search keyword : "
+    print "Enter Book title to search : "
     title = gets.chomp.downcase
     obj = arr.select {|e| e.title == title}
     puts "#{obj.length!=0?'Search Results : ':'sorry,Book is not available!'}\n" 
@@ -130,8 +133,13 @@ def returnBook(borrowedBooks,arr)
     end
 end
 
+def listBorrowers(borrowers)
+    puts "\nList of Borrowers"
+    borrowers.each {|e| e.display  }
+end
+
 while(1)
-    print "\nadd book = 1, add Borrower = 2, search book = 3, borrow book = 4\ncheck overdue books = 5, return book = 6, reports = 7, exit = 8 \n"
+    print "\nadd book = 1, add Borrower = 2, search book = 3, borrow book = 4\ncheck overdue books = 5, return book = 6, reports = 7, list Borrowers = 8, exit = 9 \n"
     print "please enter your choice : "
     c = gets.chomp
     case c
@@ -142,7 +150,8 @@ while(1)
         when "5" then overdueBooks(borrowedBooks)
         when "6" then returnBook(borrowedBooks,arr)
         when "7" then reports(arr,borrowedBooks)
-        when "8" then exit
+        when "8" then listBorrowers(borrowers)
+        when "9" then return puts "you logged out"
         else puts "wrong key pressed"
     end 
 end
